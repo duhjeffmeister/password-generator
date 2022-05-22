@@ -1,56 +1,68 @@
-// Declare function for generating password
+// Assignment code here
+var infoCenter = {
+  lowerCase: "abcdefghijklmnopqrstuvwxyz",
+  upperCase: "ABCDEFGHIJKLMNOPQRSTUBWXYZ",
+  allNumbers: "1234567890",
+  specialCharacters: "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~",
+} 
+// Create password
 function generatePassword() {
+var userInput = prompt("Please indicate password length in between 8 and 128 characters");
+var password = "";
+var passwordWordbox = "";
 
-// Declaring variables for piecing together the password
-  var lowerLetter = "abcdefghijklmnopqrstuvwxyz";
-  var upperLetter = "ABCDEFGHIJKLMNOPQRSTUBWXYZ";
-  var numbers = "1234567890";
-  var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-  var password = [];
+// If user inputs a valid character count, ask what they want in the password
+if (userInput <= 128 && 8 <= userInput) {
+  lowerCase = confirm("Click OK if you want lower case letters in your password.");
+  upperCase = confirm("Click OK if you want upper case letters in your password.");
+  allNumbers = confirm("Click OK if you want numbers in your password.");
+  specialCharacters = confirm("Click OK if you want special characters in your password.");
 
-// Inform user that they can only have a password between 8 and 128 characters with a window prompt, then ask them 
-// how many they desire, then assign it to passwordLength.
-  let passwordLength = prompt("Please indicate password length in between 8 and 128 characters", "");
-    console.log(passwordLength);
-    // Write code to address if input is not a number or is blank.
-    if (passwordLength > 128 || passwordLength < 8) {
-      alert("Please choose a password length between 8 and 128 characters")
-    }
-    else ()
+  if (lowerCase === false && upperCase === false && allNumbers === false && specialCharacters === false) {
+    alert("Please confirm one or more character types for your password.");
+  }
 
-// Ask user in a window if they want to user lowercase letters, uppercase letters, numbers, or special 
-// characters using window.confirm.
+  if (upperCase) {
+    passwordWordbox += infoCenter.upperCase;
+  }
 
-  //Assign user input to a variable.
+  if (lowerCase) {
+    passwordWordbox += infoCenter.lowerCase;
+  }
 
-// Take user input variable and use it to establish password:
+  if (allNumbers) {
+    passwordWordbox += infoCenter.allNumbers;
+  }
 
-  // Create a string of passwordLength digits length
+  if (specialCharacters) {
+    passwordWordbox += infoCenter.specialCharacters;
+  }
 
-    // If user wants lowercase letters, generate lowercase letters by pulling out individual random digits from the string lowerLetter
-      
-      // Analyze the string to pull a random lower case letter out.
-    
-    // If user wants uppercase letters, generate uppercase letters by pulling out individual random digits from the string upperLetter
-      
-        // Analyze the string to pull a random upper case letter out.
-    
-      // If user wants numbers, generate numbers by pulling out individual random digits from the string numbers
-      
-        // Analyze the string to pull a random number out.
-    
-      // If user wants special characters, generate numbers by pulling out individual random digits from the string specialCharacters.
-      
-        // Analyze the string to pull a random special character out.
+  // Create password with random string elements from the master password string
+  for (let i = 0; i < userInput; i++) {
+    password += passwordWordbox[Math.floor(Math.random() * passwordWordbox.length)];
+  }
   
-  // Combine as many of these random string digits together to make however many characters the user wants for their password length
-  // and assign them to variable password.
+  // Print password for user
+  return password;
 }
 
-// Upon button click, display the password based upon all above information
+else if (userInput < 8 || userInput > 128) {
+  alert("Please enter a character count of 8 and 128 for your password.");
+}
+}
+
+// Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-generateBtn.addEventListener('click', function() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-})
+
+// Write password to the #password input
+function writePassword() {
+var password = generatePassword();
+var passwordText = document.querySelector("#password");
+
+passwordText.value = password;
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
