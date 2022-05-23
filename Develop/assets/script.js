@@ -49,7 +49,14 @@ if (userInput <= 128 && 8 <= userInput) {
 
 else if (userInput < 8 || userInput > 128) {
   alert("Please enter a character count of 8 and 128 for your password.");
+
+  document.getElementById("password").innerHTML = restart("Please restart by clicking Generate Password");
+  function restart(message) {
+    return message;
+  }
 }
+
+
 }
 
 // Get references to the #generate element
